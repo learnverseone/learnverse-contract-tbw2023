@@ -7,10 +7,32 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 
 contract MysteryBox is ERC721Enumerable, Pausable, Ownable {
     uint256 private _tokenIdCounter;
+    address public minter;
+    string private baseURI_;
 
-    function safeMint(address receiver) public onlyOwner {
+    constructor(
+        address initialOwner
+    ) Ownable(initialOwner) ERC721("Learnverse: MysteryBox", "BOX") {}
+
+    function setMinter(address _minter) external onlyOwner {
+        minter = _minter;
+    }
+
+    function setURI(string memory uri) external onlyOwner {
+        baseURI_ = uri;
+    }
+
+    function mint(address to) external {
+        require(msg.sender == minter, "Not minter");
+
         uint256 tokenId = _tokenIdCounter;
-        _safeMint(_receiver, tokenId);
+        _safeMint(to, tokenId);
         _tokenIdCounter += 1;
+    }
+
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC721Enumerable) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 }
