@@ -9,10 +9,10 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./MysteryBox.sol";
 
 contract MysteryBoxMinter is Ownable, ReentrancyGuard {
-    uint256 public price = 100;
+    uint256 public price;
     ERC20 public usdt;
 
-    uint256 public maxSupply = 5000;
+    uint256 public maxSupply;
 
     MysteryBox public mysteryBox;
 
