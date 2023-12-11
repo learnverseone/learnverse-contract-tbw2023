@@ -65,22 +65,11 @@ $ anvil --help
 $ cast --help
 ```
 
-localhost
-
-```
-anvil --fork-url <url>
-```
-
-Test deploy
-
-```
-forge script script/Minter.s.sol --broadcast --rpc-url http://127.0.0.1:8545
-
-```
+### Testnet deploy
 
 Deploy
 
 ```
-forge script script/Minter.s.sol --broadcast --verify --rpc-url ${GOERLI_RPC_URL}
-forge script script/Minter.s.sol --broadcast --verify --rpc-url ${MAINNET_RPC_URL}
+source .env
+forge script script/MysteryBoxMinter.s.sol --rpc-url $OPBNB_TESTNET_RPC_URL --broadcast --legacy
 ```
