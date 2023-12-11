@@ -4,11 +4,14 @@ pragma solidity ^0.8.13;
 import {Test, console2} from "forge-std/Test.sol";
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 import {MysteryBoxMinter} from "../src/MysteryBoxMinter.sol";
 import {MysteryBox} from "../src/MysteryBox.sol";
 
 contract MysteryBoxMinterTest is Test {
+    using SafeERC20 for IERC20;
+
     MysteryBoxMinter public minter;
     MysteryBox public mysteryBox;
     address public USDT = 0x9e5AAC1Ba1a2e6aEd6b32689DFcF62A509Ca96f3;
@@ -20,17 +23,23 @@ contract MysteryBoxMinterTest is Test {
     function setUp() public {
         vm.createSelectFork(vm.rpcUrl("opbnb"), 10492667);
 
-        // minter = new MysteryBoxMinter(100, 5000, USDT);
-        // mysteryBox = minter.mysteryBox();
+        // MysteryBox m = new MysteryBox(alice);
+
+        minter = new MysteryBoxMinter(100 * 1e6, 5000, USDT);
+        mysteryBox = minter.mysteryBox();
         usdt = IERC20(USDT);
     }
 
     function testMint() public {
-        deal(USDT, alice, 1000 * 1e6);
-        assertEq(usdt.balanceOf(alice), 1000 * 1e6);
-        console2.log(usdt.balanceOf(alice));
-        // vm.prank(alice);
-        // minter.mint(alice, 2);
-        // assert(mysteryBox.balanceOf(alice) == 2);
+        uint256 amount = 1000 * 1e6;
+        deal(USDT, alice, amount);
+        assertEq(usdt.balanceOf(alice), amount);
+
+        vm.prank(alice);
+        usdt.approve(address(minter), amount);
+        vm.prank(alice);
+        minter.mint(alice, 2);
+
+        assert(mysteryBox.balanceOf(alice) == 2);
     }
 }
