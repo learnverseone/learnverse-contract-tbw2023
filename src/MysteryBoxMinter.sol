@@ -50,8 +50,7 @@ contract MysteryBoxMinter is Ownable, ReentrancyGuard {
             mysteryBox.totalSupply() + amount <= maxSupply,
             "max supply reached"
         );
-        usdt.safeIncreaseAllowance(address(this), amount * price);
-        //console2.log("allowance", usdt.allowance(msg.sender, address(this)));
+        console2.log("allowance", usdt.allowance(msg.sender, address(this)));
         usdt.safeTransferFrom(msg.sender, address(this), amount * price);
 
         for (uint256 i = 0; i < amount; i++) {

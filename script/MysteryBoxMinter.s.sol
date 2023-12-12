@@ -6,6 +6,8 @@ import "forge-std/Test.sol";
 import "../src/MysteryBox.sol";
 import "../src/MysteryBoxMinter.sol";
 
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
 contract MysteryBoxMinterScript is Script {
     function setUp() public {}
 
@@ -25,16 +27,18 @@ contract MysteryBoxMinterScript is Script {
 
         vm.stopBroadcast();
 
-        // vm.startBroadcast(deployerPrivateKey);
+        vm.startBroadcast(deployerPrivateKey);
 
-        // minter.mint(address(this), 1);
+        IERC20(USDT).approve(address(minter), 1000);
+        minter.mint(msg.sender, 1);
 
-        // vm.stopBroadcast();
+        vm.stopBroadcast();
 
-        // vm.startBroadcast(deployerPrivateKey);
+        vm.startBroadcast(deployerPrivateKey);
 
-        // minter.mint(address(this), 1);
+        IERC20(USDT).approve(address(minter), 1000);
+        minter.mint(msg.sender, 1);
 
-        // vm.stopBroadcast();
+        vm.stopBroadcast();
     }
 }
