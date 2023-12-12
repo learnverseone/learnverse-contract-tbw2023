@@ -14,14 +14,27 @@ contract MysteryBoxMinterScript is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // address USDT = 0x9e5AAC1Ba1a2e6aEd6b32689DFcF62A509Ca96f3;
-        // use testnet USDT
-        address USDT = 0x7ef95a0FEE0Dd31b22626fA2e10Ee6A223F8a684;
+        // use opbnb testnet USDT
+        address USDT = 0xCF712f20c85421d00EAa1B6F6545AaEEb4492B75;
 
-        MysteryBoxMinter minter = new MysteryBoxMinter(100 * 1e6, 5000, USDT);
+        MysteryBoxMinter minter = new MysteryBoxMinter(1, 5000, USDT); // lower the price since the faucet only give me 10USDT per 24 hour...
         MysteryBox mysteryBox = minter.mysteryBox();
 
         console2.log("MysteryBox:", address(mysteryBox));
         console2.log("Minter:", address(minter));
+
         vm.stopBroadcast();
+
+        // vm.startBroadcast(deployerPrivateKey);
+
+        // minter.mint(address(this), 1);
+
+        // vm.stopBroadcast();
+
+        // vm.startBroadcast(deployerPrivateKey);
+
+        // minter.mint(address(this), 1);
+
+        // vm.stopBroadcast();
     }
 }
