@@ -90,8 +90,8 @@ source .env
 forge script script/MysteryBoxMinter.s.sol --rpc-url $OPBNB_TESTNET_RPC_URL --broadcast --legacy --verify
 ```
 
-MysteryBox: 0x306DFd4daD3D9Aa659b745C80096fe65Be343E78
-Minter: 0xAf74e61C5A3FD308BD62Cd30d4f4A9fc7ce39318
+MysteryBox: 0x6Ba65778cc154856C17aC9685B2d80a5a091e68b
+Minter: 0x2e14DaCAcAc28DFeD1dCfa3AeBa1B3333B8D78A1
 
 ```
 $ cast send 0x7F842217F90ac9B48C5dB2C9791FF5c7C952369c "mint(address,uint256)" 0x34f4a12863Cc75DCd961590AC9FfdFBe18eb3bde 1 --rpc-url https://opbnb-testnet-rpc.bnbchain.org --private-key <pk>
